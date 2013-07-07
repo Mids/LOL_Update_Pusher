@@ -19,3 +19,5 @@ gradlew
 *.iml
 LOL_Update_Pusher/build/
 LOL_Update_Pusher/libs/
+out/
+*.mid

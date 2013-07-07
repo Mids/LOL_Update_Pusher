@@ -3,7 +3,7 @@
 
     <string name="app_name" >LOL_Update_Pusher</string>
     <string name="action_settings" >Settings</string>
-    <string name="url">http://mids.dothome.co.kr/saleinfo</string>
+    <string name="url">http://14.63.162.66/saleinfo.mid</string>
     <string name="version">1.01</string>
     <string name="version_prefix">&#160;- ver&#160;</string>
 
