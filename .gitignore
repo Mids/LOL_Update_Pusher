@@ -21,3 +21,7 @@ LOL_Update_Pusher/build/
 LOL_Update_Pusher/libs/
 out/
 *.mid
+*.txt
+*.zip
+*.html
+GoogleAdMobAdsSdkAndroid-6.4.1/docs/

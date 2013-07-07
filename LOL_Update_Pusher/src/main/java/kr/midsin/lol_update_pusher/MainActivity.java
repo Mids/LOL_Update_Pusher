@@ -3,13 +3,17 @@ package kr.midsin.lol_update_pusher;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,9 +30,11 @@ import kr.midsin.lol_update_pusher.Data.Sale;
 import kr.midsin.lol_update_pusher.Data.SaleItem;
 
 public class MainActivity extends Activity {
+    private static final String MY_AD_UNIT_ID = "a151d98af078939";
     protected String mJsonData="";
     ListView mListView;
     SaleListAdapter saleListAdapter;
+    AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +45,30 @@ public class MainActivity extends Activity {
         new TestAsyncTask().execute();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(adView == null) {
+            switch (item.getItemId()){
+                case R.id.support:
+                    setAdMob();
+                    break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(adView != null){
+            return false;
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-        return false;
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     private void jsonParser(){
@@ -111,25 +135,38 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void setAdMob(){
+        adView = new AdView(this, AdSize.BANNER, MY_AD_UNIT_ID);
+        FrameLayout layout = (FrameLayout)findViewById(R.id.fl_ad_layout);
+        layout.addView(adView);
+        findViewById(R.id.rl_ad_layout).setVisibility(View.VISIBLE);
+        adView.loadAd(new AdRequest());
+    }
     private class TestAsyncTask extends AsyncTask<Void, Void, Void> {
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            getJsonData();
+            jsonParser();
+            publishProgress();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mListView.setAdapter(saleListAdapter);
+            super.onPostExecute(result);
+        }
+
     }
 
     @Override
-    protected Void doInBackground(Void... params) {
-        getJsonData();
-        jsonParser();
-        publishProgress();
-        return null;
+    protected void onDestroy() {
+        adView.destroy();
+        super.onDestroy();
     }
-
-    @Override
-    protected void onPostExecute(Void result) {
-        mListView.setAdapter(saleListAdapter);
-        super.onPostExecute(result);
-    }
-
-}
 }

@@ -32,7 +32,27 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/version"
+                android:text="@string/version_name"
                 />
     </LinearLayout>
+    <RelativeLayout
+            android:id="@+id/rl_ad_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/please_press_ad"
+                />
+        <FrameLayout
+                android:id="@+id/fl_ad_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
 </LinearLayout>
