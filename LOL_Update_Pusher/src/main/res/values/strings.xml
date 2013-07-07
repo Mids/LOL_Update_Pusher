@@ -3,8 +3,8 @@
 
     <string name="app_name" >LOL_Update_Pusher</string>
     <string name="action_settings" >Settings</string>
-    <string name="url">http://221.148.140.169:8989/saleinfo</string>
-    <string name="version">0.1</string>
+    <string name="url">http://mids.dothome.co.kr/saleinfo</string>
+    <string name="version">1.01</string>
     <string name="version_prefix">&#160;- ver&#160;</string>
 
 </resources>
