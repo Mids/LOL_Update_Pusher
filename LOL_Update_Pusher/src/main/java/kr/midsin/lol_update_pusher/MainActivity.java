@@ -166,7 +166,9 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        adView.destroy();
+        if(adView != null) {
+            adView.destroy();
+        }
         super.onDestroy();
     }
 }
